@@ -512,6 +512,7 @@ import AddRestaurantModal from './AddRestaurantModal';
 import { FaHome, FaUsers, FaTasks, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Link from 'next/link';
 import EditMenuModal from './EditMenuModal';  // Import the EditMenuModal component
+import { jwtDecode } from "jwt-decode"
 
 export default function Dashboard() {
   const [restaurants, setRestaurants] = useState([]);
@@ -521,21 +522,208 @@ export default function Dashboard() {
   const [editRestaurantId, setEditRestaurantId] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // For menu editing modal
+  const [user, setUser] = useState(null);
+  const [message, setMessage] = useState(null)
+
+
 
   const router = useRouter();
 
+  // useEffect(() => {
+  //   const getTokenFromCookies = () => {
+  //     const token = document.cookie
+  //       .split("; ")
+  //       .find((row) => row.startsWith("jwt"))
+  //       ?.split("=")[1];
+  //     console.log("Retrieved token from cookies:", token); // Debugging log
+  //     return token;
+  //   };
+  
+  //   // Function to decode the JWT token and extract user details
+  //   const getUserFromToken = (token) => {
+  //     try {
+  //       const decodedToken = jwtDecode(token);
+  //       console.log("Decoded token:", decodedToken); // Debugging log
+  //       return decodedToken;
+  //     } catch (error) {
+  //       console.error("Error decoding token:", error);
+  //     }
+  //   };
+  
+  //   // Fetching user details
+  //   const fetchUserDetails = async () => {
+  //     try {
+  //       const token = getTokenFromCookies();
+  //       if (token) {
+  //         console.log("Token found, decoding user details...");
+  //         const userId = getUserFromToken(token);
+  //         const response = await axios.get("http://localhost:3001/admin/ownerDetails", {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         });
+  //         console.log(token, "token yahan hai")
+  //         console.log("User details fetched:", response.data); // Debugging log
+  //         setUser(response.data);
+  //       } else {
+  //         console.log("No token found in cookies"); // Debugging log
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user details:", error);
+  //     }
+  //   };
+  
+  //   async function fetchRestaurants() {
+  //     try {
+  //       const response = await axios.get('http://localhost:3001/restaurant');
+  //       console.log("Restaurants fetched:", response.data); // Debugging log
+  //       setRestaurants(response.data);
+  //     } catch (err) {
+  //       console.error("Failed to fetch restaurants:", err);
+  //       setError('Failed to fetch restaurants');
+  //     }
+  //   }
+  
+  //   fetchUserDetails();
+  //   fetchRestaurants();
+  // }, []);
+  // // useEffect(() => {
+  // //   const getTokenFromCookies = () => {
+  // //     const token = document.cookie
+  // //       .split("; ")
+  // //       .find((row) => row.startsWith("jwt"))
+  // //       ?.split("=")[1];
+  // //     return token;
+  // //   };
+
+  // //   // Function to decode the JWT token and extract user details
+  // //   const getUserFromToken = (token) => {
+  // //     try {
+  // //       const decodedToken = jwtDecode(token);
+  // //       return decodedToken;
+  // //     } catch (error) {
+  // //       console.error("Error decoding token:", error);
+  // //     }
+  // //   };
+
+  // //   // Fetching user details
+  // //   const fetchUserDetails = async () => {
+  // //     try {
+  // //       const token = getTokenFromCookies();
+  // //       if (token) {
+  // //         const userId = getUserFromToken(token);
+  // //         const response = await axios.get("http://localhost:3001/admin/ownerDetails", {
+  // //           headers: {
+  // //             Authorization: `Bearer ${token}`,
+  // //           },
+  // //         });
+  // //         setUser(response.data);
+  // //       }
+  // //     } catch (error) {
+  // //       console.error("Error fetching user details:", error);
+  // //     }
+  // //   };
+
+  // //   async function fetchRestaurants() {
+  // //     try {
+  // //       const response = await axios.get('http://localhost:3001/restaurant');
+  // //       setRestaurants(response.data);
+  // //     } catch (err) {
+  // //       setError('Failed to fetch restaurants');
+  // //     }
+  // //   }
+  // //   fetchUserDetails();
+  // //   fetchRestaurants();
+  // // }, []);
   useEffect(() => {
-    async function fetchRestaurants() {
+    const getTokenFromCookies = () => {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("jwt"))
+        ?.split("=")[1];
+      console.log("Retrieved token from cookies:", token);
+      // Debugging log
+      return token;
+    };
+  
+    // Fetching user details
+    const fetchUserDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/restaurant');
-        setRestaurants(response.data);
-      } catch (err) {
-        setError('Failed to fetch restaurants');
+        const token = getTokenFromCookies();
+        if (token) {
+          console.log("Token found, sending to backend...");
+          const response = await axios.get("http://localhost:3001/admin/ownerDetails", {
+            headers: {
+              Authorization: `Bearer ${token}`, // Send the token without decoding
+            },
+          });
+          console.log("Sending token in Authorization header:", `Bearer ${token}`);
+          console.log("User details fetched:", response.data); // Debugging log
+          setUser(response.data);
+        } else {
+          console.log("No token found in cookies"); // Debugging log
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
       }
+    };
+  
+    // Fetching restaurants
+    // const fetchRestaurants = async () => {
+    //   try {
+    //     const token = getTokenFromCookies();
+    //     if (token) {
+    //       console.log("Token found, sending to backend...");
+    //       const response = await axios.get('http://localhost:3001/restaurant', {
+    //         headers: {
+    //           Authorization: `Bearer ${token}`, // Send the token with the request
+    //         },
+    //       });
+    //       console.log("Sending token in Authorization header:", `Bearer ${token}`);
+    //       console.log("Restaurants fetched:", response.data); // Debugging log
+    //       setRestaurants(response.data);
+    //     } else {
+    //       console.log("No token found in cookies"); // Debugging log
+    //     }
+    //   } catch (err) {
+    //     console.error("Failed to fetch restaurants:", err);
+    //     setError('Failed to fetch restaurants');
+    //   }
+    // };
+  const fetchRestaurants = async () => {
+  try {
+    const token = getTokenFromCookies();
+    if (token) {
+      console.log("Token found, sending to backend...");
+      const response = await axios.get('http://localhost:3001/restaurant', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send the token with the request
+        },
+      });
+      console.log("Sending token in Authorization header:", `Bearer ${token}`);
+      console.log("Restaurants fetched:", response.data); // Debugging log
+
+      if (response.data.length === 0) {
+        // If no restaurants are returned, set an error message
+        // setError("No restaurants in database");
+        setMessage ("No restaurants in database")
+      } else {
+        // Set the restaurant data if restaurants exist
+        setRestaurants(response.data);
+      }
+    } else {
+      console.log("No token found in cookies"); // Debugging log
     }
+  } catch (err) {
+    console.error("Failed to fetch restaurants:", err);
+    setError("Failed to fetch restaurants");
+  }
+};
+
+    fetchUserDetails();
     fetchRestaurants();
   }, []);
-
+  
   const handleEditRestaurant = (id) => {
     setEditRestaurantId(id);
     setShowEditModal(true);
@@ -638,6 +826,17 @@ export default function Dashboard() {
     <div className="flex">
       <aside className="w-64 bg-white shadow-md flex flex-col justify-between h-screen">
         <div>
+        {user && (
+            <div className="p-4 flex flex-col items-center">
+              <img
+                className="w-20 h-20 rounded-full object-cover border-4 border-blue-500"
+                src={user.profileImage}
+                alt="User Profile"
+              />
+              <h2 className="mt-4 text-lg font-semibold text-gray-800">{user.name}</h2>
+              <p className="text-sm text-gray-600">{user.email}</p>
+            </div>
+          )}
           <nav className="mt-6">
             <ul>
               <Link href="/dashboard">
@@ -718,59 +917,75 @@ export default function Dashboard() {
            </div>
           ))}
         </div> */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {restaurants.map((restaurant) => (
-            <div key={restaurant._id} className="restaurant-card p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-
-              {/* Profile Image Section */}
-              <div className="flex items-center mb-4">
-                <img
-                  src={restaurant.profileImage || "https://via.placeholder.com/150"}
-                  alt={restaurant.name}
-                  className="w-20 h-20 rounded-full border-4 border-teal-500 mr-4"
-                />
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-800">{restaurant.name}</h2>
-                  <p className="text-sm text-gray-500">Cuisine: {restaurant.cuisine || 'N/A'}</p>
-                  <p className="text-sm text-gray-500">Rating: {restaurant.rating} ★</p>
-                </div>
-              </div>
-
-              {/* Restaurant Description and Buttons */}
-              <div className="mt-4">
-                <button
-                  onClick={() => router.push(`/admin/dashboard/${restaurant._id}`)} // Redirect to dynamic restaurant page
-                  className="w-full bg-teal-600 text-white py-2 rounded-lg mb-3 hover:bg-teal-700 transition duration-300"
-                >
-                  View Details
-                </button>
-
-                <div className="flex justify-between gap-3">
-                  {/* Edit and Menu Edit Buttons */}
-                  <button
-                    onClick={() => handleEditRestaurant(restaurant._id)}
-                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleEditMenu(restaurant)}
-                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
-                  >
-                    Edit Menu
-                  </button>
-                  {/* Delete Button */}
-                  <button
-                    onClick={() => handleDeleteRestaurant(restaurant._id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+  {/* Check if the response contains a message */}
+  {message ? (
+    <div className="col-span-full text-center text-xl font-semibold text-red-500">
+      {message} {/* Display the message from the server */}
+    </div>
+  ) : (
+    // If restaurants array is not empty, map over the array and display restaurant cards
+    Array.isArray(restaurants) && restaurants.length > 0 ? (
+      restaurants.map((restaurant) => (
+        <div key={restaurant._id} className="restaurant-card p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          
+          {/* Profile Image Section */}
+          <div className="flex items-center mb-4">
+            <img
+              src={restaurant.profileImage || "https://via.placeholder.com/150"}
+              alt={restaurant.name}
+              className="w-20 h-20 rounded-full border-4 border-teal-500 mr-4"
+            />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800">{restaurant.name}</h2>
+              <p className="text-sm text-gray-500">Cuisine: {restaurant.cuisine || 'N/A'}</p>
+              <p className="text-sm text-gray-500">Rating: {restaurant.rating} ★</p>
             </div>
-          ))}
+          </div>
+
+          {/* Restaurant Description and Buttons */}
+          <div className="mt-4">
+            <button
+              onClick={() => router.push(`/admin/dashboard/${restaurant._id}`)} // Redirect to dynamic restaurant page
+              className="w-full bg-teal-600 text-white py-2 rounded-lg mb-3 hover:bg-teal-700 transition duration-300"
+            >
+              View Details
+            </button>
+
+            <div className="flex justify-between gap-3">
+              {/* Edit and Menu Edit Buttons */}
+              <button
+                onClick={() => handleEditRestaurant(restaurant._id)}
+                className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleEditMenu(restaurant)}
+                className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
+              >
+                Edit Menu
+              </button>
+              {/* Delete Button */}
+              <button
+                onClick={() => handleDeleteRestaurant(restaurant._id)}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
+      ))
+    ) : (
+      // If the restaurants array is empty or not provided
+      <div className="col-span-full text-center text-xl font-semibold text-gray-500">
+        No restaurants found.
+      </div>
+    )
+  )}
+</div>
 
         {showAddModal && <AddRestaurantModal onClose={() => setShowAddModal(false)} />}
         {showEditModal && (

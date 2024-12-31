@@ -465,6 +465,7 @@ export default function UsersList() {
     const getUserFromToken = (token) => {
       try {
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken)
         return decodedToken;
       } catch (error) {
         console.error("Error decoding token:", error);
