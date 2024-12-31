@@ -179,123 +179,370 @@
 //     </div>
 //   );
 // }
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import {jwtDecode} from "jwt-decode"; // Make sure it's installed using `npm install jwt-decode`
+// import Link from 'next/link'
+// import { FaUsers, FaTasks, FaCog, FaHome,FaEdit,FaTrashAl,FaCheckCircle,FaSignOutAlt } from "react-icons/fa"
+// import Swal from 'sweetalert2';
+
+
+
+
+// export default function UsersList() {
+//   const router = useRouter()
+//   const [userDetails, setUserDetails] = useState(null);
+//   const [user, setUser] = useState(null);
+
+//   useEffect(() => {
+//     // Function to fetch the JWT token from cookies
+//     const getTokenFromCookies = () => {
+//       console.log("Fetching token from cookies..."); // Debugging log
+//       const token = document.cookie
+//         .split("; ")
+//         .find((row) => row.startsWith("jwt"))
+//         ?.split("=")[1];
+//       console.log("JWT Token:", token); // Log the token (if found)
+//       return token;
+//     };
+
+//     // Function to decode the JWT token and extract user details
+//     const getUserFromToken = (token) => {
+//       console.log("Decoding token:", token); // Log the token before decoding
+//       try {
+//         const decodedToken = jwtDecode(token);
+//         console.log("Decoded Token:", decodedToken); // Log the decoded token
+//         return decodedToken; // Assuming the token contains user ID
+//       } catch (error) {
+//         console.error("Error decoding token:", error); // Error handling log
+//       }
+//     };
+
+//     // Fetching data from the API
+//     const fetchUserDetails = async () => {
+//       console.log("Starting fetchUserDetails function..."); // Debugging log
+//       try {
+//         const token = getTokenFromCookies();
+//         if (token) {
+//           console.log("Token found. Proceeding with user decoding..."); // Debugging log
+//           const userId = getUserFromToken(token);
+//           console.log("Decoded User ID:", userId); // Log userId
+
+//           // Fetching user data from the API
+//           const response = await axios.get("http://localhost:3001/auth/userDetails", {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//             },
+//           });
+//           console.log("API Response:", response); // Log the full response
+//           setUser(response.data); // Store the user details in the state
+//         } else {
+//           console.log("No token found in cookies."); // Log when no token is found
+//         }
+//       } catch (error) {
+//         console.error("Error fetching user details:", error); // Error handling log
+//       }
+//     };
+
+//     fetchUserDetails();
+//   }, []); // Empty dependency array to run once when the component mounts
+//   const handleLogout = async () => {
+//     try {
+//       Swal.fire({
+//         title: 'Logging out...',
+//         text: 'Please wait a moment.',
+//         icon: 'info',
+//         allowOutsideClick: false,
+//         showConfirmButton: false,
+//         didOpen: () => Swal.showLoading(),
+//       });
+
+//       const response = await axios.post('http://localhost:3001/auth/user/logout', {}, { withCredentials: true });
+//       console.log('Logout response:', response);
+
+//       if (response.status === 200) {
+//         Swal.fire({
+//           title: 'Success!',
+//           text: 'You have been logged out successfully.',
+//           icon: 'success',
+//           confirmButtonText: 'OK',
+//         }).then(() => {
+//           setTimeout(() => {
+//             router.push("/user/login");
+//           }, 1500);
+//         });
+//       } else {
+//         Swal.fire({
+//           title: 'Error',
+//           text: 'Logout failed. Please try again.',
+//           icon: 'error',
+//           confirmButtonText: 'OK',
+//         });
+//       }
+//     } catch (error) {
+//       console.error('Error during logout:', error);
+//       Swal.fire({
+//         title: 'Error',
+//         text: `Something went wrong: ${error.response?.data?.message || error.message}`,
+//         icon: 'error',
+//         confirmButtonText: 'OK',
+//       });
+//     }
+//   };
+//   return (
+//     <div className="flex">
+//       {/* Sidebar */}
+//       <aside className="w-64 bg-white shadow-md flex flex-col justify-between h-screen">
+//         <div>
+//           {/* Profile Section in Sidebar */}
+//           {user && (
+//             <div className="p-4 flex flex-col items-center">
+//               <img
+//                 className="w-20 h-20 rounded-full object-cover border-4 border-blue-500"
+//                 src={user.profileImage}
+//                 alt="User Profile"
+//               />
+//               <h2 className="mt-4 text-lg font-semibold text-gray-800">{user.name}</h2>
+//               <p className="text-sm text-gray-600">{user.email}</p>
+//             </div>
+//           )}
+//           {/* Navigation Links */}
+
+//           <nav className="mt-6">
+//             <ul>
+//               <Link href="/dashboard">
+//                 <li className="p-4 hover:bg-gray-200 flex items-center">
+//                   <FaHome className="mr-3 text-indigo-600" />
+//                   Dashboard
+//                 </li>
+//               </Link>
+//               <Link href="/dashboard/teams">
+//                 <li className="p-4 hover:bg-gray-200 flex items-center">
+//                   <FaUsers className="mr-3 text-indigo-600" />
+//                   Teams
+//                 </li>
+//               </Link>
+//               <li className="p-4 hover:bg-gray-200 flex items-center">
+//                 <FaTasks className="mr-3 text-green-600" />
+//                 Tasks
+//               </li>
+//               <li className="p-4 hover:bg-gray-200 flex items-center">
+//                 <FaCog className="mr-3 text-gray-600" />
+//                 Settings
+//               </li>
+//             </ul>
+//           </nav>
+//         </div>
+//         {/* Logout Button */}
+//         <div className="p-4">
+//           <button
+//             onClick={handleLogout}
+//             className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center justify-center"
+//           >
+//             <FaSignOutAlt className="mr-2" />
+//             Logout
+//           </button>
+//         </div>
+//       </aside>
+
+//       {/* Main Content */}
+
+//     </div>
+//   );
+
+//   // return (
+//   //   <div>
+//   //           {/* Sidebar */}
+//   //     <aside className="w-64 bg-white shadow-md flex flex-col justify-between">
+//   //       <div>
+//   //         <div className="p-4">
+//   //           <h2 className="text-2xl font-bold text-gray-800">Team Manager</h2>
+//   //         </div>
+//   //         <nav className="mt-6">
+//   //           <ul>
+//   //             <Link href="/dashboard">
+//   //               <li className="p-4 hover:bg-gray-200 flex items-center">
+//   //                 <FaHome className="mr-3 text-indigo-600" />
+//   //                 Dashboard
+//   //               </li>
+//   //             </Link>
+//   //             <Link href='/dashboard/teams'>
+//   //               <li className="p-4 hover:bg-gray-200 flex items-center">
+//   //                 <FaUsers className="mr-3 text-indigo-600" />
+//   //                 Teams
+//   //               </li>
+//   //             </Link>
+//   //             <li className="p-4 hover:bg-gray-200 flex items-center">
+//   //               <FaTasks className="mr-3 text-green-600" />
+//   //               Tasks
+//   //             </li>
+//   //             <li className="p-4 hover:bg-gray-200 flex items-center">
+//   //               <FaCog className="mr-3 text-gray-600" />
+//   //               Settings
+//   //             </li>
+//   //           </ul>
+//   //         </nav>
+//   //       </div>
+//   //       {/* Logout Button */}
+//   //       <div className="p-4">
+//   //         <button
+//   //           onClick={handleLogout}
+//   //           className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center justify-center"
+//   //         >
+//   //           <FaSignOutAlt className="mr-2" />
+//   //           Logout
+//   //         </button>
+//   //       </div>
+//   //     </aside>
+
+//   //     {user ? (
+//   //     <div className="min-h-screen bg-gray-100">
+//   //     <div className="flex items-center justify-center py-10">
+//   //       <div className="bg-white rounded-lg shadow-lg w-96 p-6">
+//   //         {/* Profile Section */}
+//   //         {user && (
+//   //           <div className="flex flex-col items-center">
+//   //             <img
+//   //               className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+//   //               src={user.profileImage}
+//   //               alt="User Profile"
+//   //             />
+//   //             <h2 className="mt-4 text-xl font-semibold text-gray-800">{user.name}</h2>
+//   //             <p className="text-sm text-gray-600">{user.email}</p>
+//   //             <p className="text-sm text-gray-600">{user.phone}</p>
+
+//   //             <div className="mt-6 w-full">
+//   //               <div className="grid grid-cols-2 gap-4 text-gray-800">
+//   //                 <div className="flex flex-col items-center">
+//   //                   <span className="text-lg font-medium">Joined</span>
+//   //                   <p className="text-sm text-gray-600">
+//   //                     {new Date(user.createdAt).toLocaleDateString()}
+//   //                   </p>
+//   //                 </div>
+//   //                 <div className="flex flex-col items-center">
+//   //                   <span className="text-lg font-medium">User ID</span>
+//   //                   <p className="text-sm text-gray-600">{user._id}</p>
+//   //                 </div>
+//   //               </div>
+//   //             </div>
+//   //           </div>
+//   //         )}
+//   //       </div>
+//   //     </div>
+//   //   </div>
+//   //     ) : (
+//   //       <p>Loading user details...</p>
+//   //     )}
+//   //   </div>
+//   // );
+// }
+'use client'
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Make sure it's installed using `npm install jwt-decode`
-import Link from 'next/link'
-import { FaUsers, FaTasks, FaCog, FaHome,FaEdit,FaTrashAl,FaCheckCircle,FaSignOutAlt } from "react-icons/fa"
-import Swal from 'sweetalert2';
-
-
-
+import { jwtDecode } from "jwt-decode"; // Make sure it's installed using `npm install jwt-decode`
+import Link from "next/link";
+import { FaUsers, FaTasks, FaCog, FaHome, FaSignOutAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function UsersList() {
-  const router = useRouter()
-  const [userDetails, setUserDetails] = useState(null);
+  const router = useRouter();
   const [user, setUser] = useState(null);
-  
+  const [restaurants, setRestaurants] = useState([]);
+
   useEffect(() => {
     // Function to fetch the JWT token from cookies
     const getTokenFromCookies = () => {
-      console.log("Fetching token from cookies..."); // Debugging log
       const token = document.cookie
         .split("; ")
         .find((row) => row.startsWith("jwt"))
         ?.split("=")[1];
-      console.log("JWT Token:", token); // Log the token (if found)
       return token;
     };
 
     // Function to decode the JWT token and extract user details
     const getUserFromToken = (token) => {
-      console.log("Decoding token:", token); // Log the token before decoding
       try {
         const decodedToken = jwtDecode(token);
-        console.log("Decoded Token:", decodedToken); // Log the decoded token
-        return decodedToken; // Assuming the token contains user ID
+        return decodedToken;
       } catch (error) {
-        console.error("Error decoding token:", error); // Error handling log
+        console.error("Error decoding token:", error);
       }
     };
 
-    // Fetching data from the API
+    // Fetching user details
     const fetchUserDetails = async () => {
-      console.log("Starting fetchUserDetails function..."); // Debugging log
       try {
         const token = getTokenFromCookies();
         if (token) {
-          console.log("Token found. Proceeding with user decoding..."); // Debugging log
           const userId = getUserFromToken(token);
-          console.log("Decoded User ID:", userId); // Log userId
-
-          // Fetching user data from the API
           const response = await axios.get("http://localhost:3001/auth/userDetails", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log("API Response:", response); // Log the full response
-          setUser(response.data); // Store the user details in the state
-        } else {
-          console.log("No token found in cookies."); // Log when no token is found
+          setUser(response.data);
         }
       } catch (error) {
-        console.error("Error fetching user details:", error); // Error handling log
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    // Fetching restaurant data
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/restaurant/restaurantList");
+        setRestaurants(response.data);
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
       }
     };
 
     fetchUserDetails();
-  }, []); // Empty dependency array to run once when the component mounts
+    fetchRestaurants();
+  }, []);
+
   const handleLogout = async () => {
     try {
       Swal.fire({
-        title: 'Logging out...',
-        text: 'Please wait a moment.',
-        icon: 'info',
+        title: "Logging out...",
+        text: "Please wait a moment.",
+        icon: "info",
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => Swal.showLoading(),
       });
-  
-      const response = await axios.post('http://localhost:3001/auth/user/logout', {}, { withCredentials: true });
-      console.log('Logout response:', response);
-  
+
+      const response = await axios.post("http://localhost:3001/auth/user/logout", {}, { withCredentials: true });
+
       if (response.status === 200) {
         Swal.fire({
-          title: 'Success!',
-          text: 'You have been logged out successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
+          title: "Success!",
+          text: "You have been logged out successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
         }).then(() => {
           setTimeout(() => {
             router.push("/user/login");
           }, 1500);
         });
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Logout failed. Please try again.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
       }
     } catch (error) {
-      console.error('Error during logout:', error);
       Swal.fire({
-        title: 'Error',
+        title: "Error",
         text: `Something went wrong: ${error.response?.data?.message || error.message}`,
-        icon: 'error',
-        confirmButtonText: 'OK',
+        icon: "error",
+        confirmButtonText: "OK",
       });
     }
   };
+
   return (
     <div className="flex">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-md flex flex-col justify-between h-screen">
         <div>
-          {/* Profile Section in Sidebar */}
           {user && (
             <div className="p-4 flex flex-col items-center">
               <img
@@ -307,8 +554,6 @@ export default function UsersList() {
               <p className="text-sm text-gray-600">{user.email}</p>
             </div>
           )}
-          {/* Navigation Links */}
-          
           <nav className="mt-6">
             <ul>
               <Link href="/dashboard">
@@ -334,7 +579,6 @@ export default function UsersList() {
             </ul>
           </nav>
         </div>
-        {/* Logout Button */}
         <div className="p-4">
           <button
             onClick={handleLogout}
@@ -345,95 +589,44 @@ export default function UsersList() {
           </button>
         </div>
       </aside>
-  
+
       {/* Main Content */}
-    
+      <div className="flex-1 p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {restaurants.map((restaurant, index) => (
+            <div key={index} className="restaurant-card bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow duration-300">
+
+              {/* Profile Image Section */}
+              <div className="mb-4">
+                <img
+                  src={restaurant.profileImage || "https://via.placeholder.com/150"}
+                  alt={restaurant.name}
+                  className="rounded-t-lg h-48 w-full object-cover"
+                />
+              </div>
+
+              {/* Restaurant Info Section */}
+              <div className="p-4">
+                <h5 className="text-lg font-semibold text-gray-800">{restaurant.name}</h5>
+                <p className="text-sm text-gray-600">Cuisine: {restaurant.cuisine}</p>
+                <p className="text-sm text-gray-600">Rating: {restaurant.rate} ★</p>
+              </div>
+
+              {/* View Details Button */}
+              <div className="mt-4">
+                <button
+                  onClick={() => router.push(`/user/dashboard/${restaurant._id}`)} // Redirect to dynamic restaurant page
+                  className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition duration-300"
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
     </div>
   );
-  
-  // return (
-  //   <div>
-  //           {/* Sidebar */}
-  //     <aside className="w-64 bg-white shadow-md flex flex-col justify-between">
-  //       <div>
-  //         <div className="p-4">
-  //           <h2 className="text-2xl font-bold text-gray-800">Team Manager</h2>
-  //         </div>
-  //         <nav className="mt-6">
-  //           <ul>
-  //             <Link href="/dashboard">
-  //               <li className="p-4 hover:bg-gray-200 flex items-center">
-  //                 <FaHome className="mr-3 text-indigo-600" />
-  //                 Dashboard
-  //               </li>
-  //             </Link>
-  //             <Link href='/dashboard/teams'>
-  //               <li className="p-4 hover:bg-gray-200 flex items-center">
-  //                 <FaUsers className="mr-3 text-indigo-600" />
-  //                 Teams
-  //               </li>
-  //             </Link>
-  //             <li className="p-4 hover:bg-gray-200 flex items-center">
-  //               <FaTasks className="mr-3 text-green-600" />
-  //               Tasks
-  //             </li>
-  //             <li className="p-4 hover:bg-gray-200 flex items-center">
-  //               <FaCog className="mr-3 text-gray-600" />
-  //               Settings
-  //             </li>
-  //           </ul>
-  //         </nav>
-  //       </div>
-  //       {/* Logout Button */}
-  //       <div className="p-4">
-  //         <button
-  //           onClick={handleLogout}
-  //           className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center justify-center"
-  //         >
-  //           <FaSignOutAlt className="mr-2" />
-  //           Logout
-  //         </button>
-  //       </div>
-  //     </aside>
-       
-  //     {user ? (
-  //     <div className="min-h-screen bg-gray-100">
-  //     <div className="flex items-center justify-center py-10">
-  //       <div className="bg-white rounded-lg shadow-lg w-96 p-6">
-  //         {/* Profile Section */}
-  //         {user && (
-  //           <div className="flex flex-col items-center">
-  //             <img
-  //               className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
-  //               src={user.profileImage}
-  //               alt="User Profile"
-  //             />
-  //             <h2 className="mt-4 text-xl font-semibold text-gray-800">{user.name}</h2>
-  //             <p className="text-sm text-gray-600">{user.email}</p>
-  //             <p className="text-sm text-gray-600">{user.phone}</p>
-
-  //             <div className="mt-6 w-full">
-  //               <div className="grid grid-cols-2 gap-4 text-gray-800">
-  //                 <div className="flex flex-col items-center">
-  //                   <span className="text-lg font-medium">Joined</span>
-  //                   <p className="text-sm text-gray-600">
-  //                     {new Date(user.createdAt).toLocaleDateString()}
-  //                   </p>
-  //                 </div>
-  //                 <div className="flex flex-col items-center">
-  //                   <span className="text-lg font-medium">User ID</span>
-  //                   <p className="text-sm text-gray-600">{user._id}</p>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         )}
-  //       </div>
-  //     </div>
-  //   </div>
-  //     ) : (
-  //       <p>Loading user details...</p>
-  //     )}
-  //   </div>
-  // );
 }

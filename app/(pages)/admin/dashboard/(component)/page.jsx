@@ -351,10 +351,10 @@
 //             showConfirmButton: false,
 //             didOpen: () => Swal.showLoading(),
 //           });
-    
+
 //           const response = await axios.post('http://localhost:3001/admin/logout', {}, { withCredentials: true });
 //           console.log('Logout response:', response);
-    
+
 //           if (response.status === 200) {
 //             Swal.fire({
 //               title: 'Success!',
@@ -519,7 +519,7 @@ export default function Dashboard() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editRestaurantId, setEditRestaurantId] = useState(null);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null); 
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // For menu editing modal
 
   const router = useRouter();
@@ -682,7 +682,7 @@ export default function Dashboard() {
         >
           Add Restaurant
         </button>
-
+        {/* 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {restaurants.map((restaurant) => (
              <div key={restaurant._id} className="restaurant-card p-4 border rounded shadow hover:shadow-lg">
@@ -717,6 +717,59 @@ export default function Dashboard() {
              </div>
            </div>
           ))}
+        </div> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {restaurants.map((restaurant) => (
+            <div key={restaurant._id} className="restaurant-card p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+
+              {/* Profile Image Section */}
+              <div className="flex items-center mb-4">
+                <img
+                  src={restaurant.profileImage || "https://via.placeholder.com/150"}
+                  alt={restaurant.name}
+                  className="w-20 h-20 rounded-full border-4 border-teal-500 mr-4"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800">{restaurant.name}</h2>
+                  <p className="text-sm text-gray-500">Cuisine: {restaurant.cuisine || 'N/A'}</p>
+                  <p className="text-sm text-gray-500">Rating: {restaurant.rating} ★</p>
+                </div>
+              </div>
+
+              {/* Restaurant Description and Buttons */}
+              <div className="mt-4">
+                <button
+                  onClick={() => router.push(`/admin/dashboard/${restaurant._id}`)} // Redirect to dynamic restaurant page
+                  className="w-full bg-teal-600 text-white py-2 rounded-lg mb-3 hover:bg-teal-700 transition duration-300"
+                >
+                  View Details
+                </button>
+
+                <div className="flex justify-between gap-3">
+                  {/* Edit and Menu Edit Buttons */}
+                  <button
+                    onClick={() => handleEditRestaurant(restaurant._id)}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleEditMenu(restaurant)}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300"
+                  >
+                    Edit Menu
+                  </button>
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => handleDeleteRestaurant(restaurant._id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {showAddModal && <AddRestaurantModal onClose={() => setShowAddModal(false)} />}
@@ -740,4 +793,3 @@ export default function Dashboard() {
   );
 }
 
-  

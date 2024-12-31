@@ -171,41 +171,91 @@ const RestaurantDetails = ({ params }) => {
 
   if (!restaurant) return <div>Loading...</div>;
 
-  return (
-    <div className="restaurant-details p-4">
-      <h1 className="text-3xl font-bold mb-4">{restaurant.name}</h1>
-      <p><strong>Cuisine:</strong> {restaurant.cuisine}</p>
-      <p><strong>Rating:</strong> {restaurant.rating}</p>
-      <p><strong>Description:</strong> {restaurant.description}</p>
+//   return (
+//     <div className="restaurant-details p-4">
+//       <h1 className="text-3xl font-bold mb-4">{restaurant.name}</h1>
+//       <p><strong>Cuisine:</strong> {restaurant.cuisine}</p>
+//       <p><strong>Rating:</strong> {restaurant.rating}</p>
+//       <p><strong>Description:</strong> {restaurant.description}</p>
 
-      <div className="menu mt-4">
-        <h2 className="text-xl font-semibold mb-2">Menu</h2>
-        <ul>
-        {restaurant.menu && restaurant.menu.length > 0 ? (
-  <ul>
-    {restaurant.menu.map((menuItem) => (
-      <li key={menuItem._id} className="flex items-center mb-5">
-        <img
-          src={menuItem.imageUrl}  // Display image for each menu item
-          alt={menuItem.itemName}  // Alt text for accessibility
-          className="w-24 h-24 object-cover mr-4"  // Tailwind classes for image styling
-        />
-        <div className="flex flex-col">
-          <h3 className="text-xl font-bold">{menuItem.itemName}</h3>
-          <p className="text-gray-600">{menuItem.description}</p>
-          <p className="text-lg font-semibold text-green-500">${menuItem.price}</p>
-        </div>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p className="text-gray-500">No menu items available</p>
-)}
+//       <div className="menu mt-4">
+//         <h2 className="text-xl font-semibold mb-2">Menu</h2>
+//         <ul>
+//         {restaurant.menu && restaurant.menu.length > 0 ? (
+//   <ul>
+//     {restaurant.menu.map((menuItem) => (
+//       <li key={menuItem._id} className="flex items-center mb-5">
+//         <img
+//           src={menuItem.imageUrl}  // Display image for each menu item
+//           alt={menuItem.itemName}  // Alt text for accessibility
+//           className="w-24 h-24 object-cover mr-4"  // Tailwind classes for image styling
+//         />
+//         <div className="flex flex-col">
+//           <h3 className="text-xl font-bold">{menuItem.itemName}</h3>
+//           <p className="text-gray-600">{menuItem.description}</p>
+//           <p className="text-lg font-semibold text-green-500">${menuItem.price}</p>
+//         </div>
+//       </li>
+//     ))}
+//   </ul>
+// ) : (
+//   <p className="text-gray-500">No menu items available</p>
+// )}
 
-        </ul>
+//         </ul>
+//       </div>
+//     </div>
+//   );
+return (
+  <div className="restaurant-details p-6 bg-gray-50 min-h-screen">
+    {/* Profile Section */}
+    <div className="flex items-center mb-8">
+      <img
+        src={restaurant.profileImage || "https://via.placeholder.com/150"}
+        alt={restaurant.name}
+        className="w-32 h-32 rounded-full border-4 border-teal-500 mr-6"
+      />
+      <div className="text-center flex flex-col items-center justify-center">
+        <h1 className="text-4xl font-extrabold text-teal-700">{restaurant.name}</h1>
+        <p className="text-lg text-teal-600 mt-2">{restaurant.cuisine} Cuisine</p>
+        <p className="text-sm text-gray-500 mt-1">Rating: {restaurant.rating} ★</p>
       </div>
     </div>
-  );
+
+    {/* Description */}
+    <div className="description mb-8">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-2">About the Restaurant</h2>
+      <p className="text-gray-600">{restaurant.description}</p>
+    </div>
+
+    {/* Menu Section */}
+    <div className="menu mt-8">
+      <h2 className="text-2xl font-semibold text-teal-700 mb-4">Menu</h2>
+      {restaurant.menu && restaurant.menu.length > 0 ? (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {restaurant.menu.map((menuItem) => (
+            <li key={menuItem._id} className="bg-white shadow-xl rounded-lg p-6 flex flex-col items-center text-center border-l-4 border-teal-500">
+              <img
+                src={menuItem.imageUrl}
+                alt={menuItem.itemName}
+                className="w-36 h-36 object-cover rounded-md mb-4"
+              />
+              <h3 className="text-xl font-bold text-gray-800">{menuItem.itemName}</h3>
+              <p className="text-gray-600 text-sm mb-2">{menuItem.description}</p>
+              <p className="text-lg font-semibold text-teal-500 mb-4">${menuItem.price}</p>
+              <button className="bg-teal-600 text-white px-6 py-2 rounded-full hover:bg-teal-700 transition duration-300">
+                Add to Cart
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-500">No menu items available</p>
+      )}
+    </div>
+  </div>
+);
+
 };
 
 export default RestaurantDetails;
