@@ -61,7 +61,7 @@ export default function Dashboard() {
     // };
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
+        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/", {
           withCredentials: true,  // Ensure credentials are sent with the request
         });
         console.log("User details fetched:", response.data);
