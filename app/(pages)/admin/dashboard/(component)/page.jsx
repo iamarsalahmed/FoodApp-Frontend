@@ -61,9 +61,11 @@ export default function Dashboard() {
     // };
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/", {
-          withCredentials: true,  // Ensure credentials are sent with the request
-        });
+        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
+                   headers: {
+                    Authorization: `Bearer ${token}`, // Send the token without decoding
+                  },
+                });
         console.log("User details fetched:", response.data);
         setUser(response.data);
       } catch (error) {
