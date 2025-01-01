@@ -484,7 +484,7 @@ return (
           </div>
         )}
         <ul className="flex space-x-6">
-          <Link href="/dashboard">
+          <Link href="/admin/dashboard">
             <li className="text-white hover:bg-teal-700 px-4 py-2 rounded-lg transition duration-300">
               Dashboard
             </li>
