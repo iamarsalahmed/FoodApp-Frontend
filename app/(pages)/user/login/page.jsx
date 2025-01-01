@@ -26,7 +26,7 @@ export default function LoginForm() {
         timer: 1500,
         showConfirmButton: false,
       });
-
+      console.log("push to dahsboard")
       // Redirect to dashboard after delay
       setTimeout(() => {
         router.push("/user/dashboard");
@@ -98,5 +98,5 @@ export default function LoginForm() {
       </div>
     </div>
   );
-  
+
 }
