@@ -15,7 +15,7 @@ const RestaurantDetails = ({ params }) => {
 
     async function fetchRestaurant() {
       try {
-        const response = await axios.get(`http://localhost:3001/restaurant/${id}`);
+        const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
         setRestaurant(response.data);
       } catch (err) {
         setError('Failed to fetch restaurant details');

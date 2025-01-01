@@ -13,7 +13,7 @@ export async function middleware(request) {
 
   try {
     // Verify the token with the backend using Axios
-    const res = await axios.post('http://localhost:3001/verify/token', {}, {
+    const res = await axios.post('https://foodapp-backend-production-7ffe.up.railway.app/verify/token', {}, {
       headers: {
         'Authorization': `Bearer ${token.value}`,
       },

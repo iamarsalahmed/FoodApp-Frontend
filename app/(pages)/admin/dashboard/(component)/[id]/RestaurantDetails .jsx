@@ -26,7 +26,7 @@ const RestaurantDetails = ({ restaurant }) => {
 
     try {
       await axios.put(
-        `http://localhost:3001/restaurant/${restaurant._id}/menu/${editingMenuItem._id}`,
+        `https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurant._id}/menu/${editingMenuItem._id}`,
         {
           itemName: editedItem.itemName,
           description: editedItem.description,
@@ -36,7 +36,7 @@ const RestaurantDetails = ({ restaurant }) => {
       );
       setIsModalOpen(false);
       window.location.reload();
-      const response = await axios.get(`http://localhost:3001/restaurant/${restaurant._id}`);
+      const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurant._id}`);
       setRestaurant(response.data);
     } catch (err) {
       setError('Failed to update menu item');

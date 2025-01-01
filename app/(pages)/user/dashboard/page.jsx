@@ -137,7 +137,7 @@
 
 //           // Fetching users data from the API
 //           console.log("Sending API request to fetch users..."); // Debugging log
-//           const response = await axios.get("http://localhost:3001/auth/users", {
+//           const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/auth/users", {
 //             headers: {
 //               Authorization: `Bearer ${token}`,
 //             },
@@ -230,7 +230,7 @@
 //           console.log("Decoded User ID:", userId); // Log userId
 
 //           // Fetching user data from the API
-//           const response = await axios.get("http://localhost:3001/auth/userDetails", {
+//           const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/auth/userDetails", {
 //             headers: {
 //               Authorization: `Bearer ${token}`,
 //             },
@@ -258,7 +258,7 @@
 //         didOpen: () => Swal.showLoading(),
 //       });
 
-//       const response = await axios.post('http://localhost:3001/auth/user/logout', {}, { withCredentials: true });
+//       const response = await axios.post('https://foodapp-backend-production-7ffe.up.railway.app/auth/user/logout', {}, { withCredentials: true });
 //       console.log('Logout response:', response);
 
 //       if (response.status === 200) {
@@ -478,7 +478,7 @@ export default function UsersList() {
         const token = getTokenFromCookies();
         if (token) {
           const userId = getUserFromToken(token);
-          const response = await axios.get("http://localhost:3001/auth/userDetails", {
+          const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/auth/userDetails", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -493,7 +493,7 @@ export default function UsersList() {
     // Fetching restaurant data
     const fetchRestaurants = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/restaurant/restaurantList");
+        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/restaurant/restaurantList");
         setRestaurants(response.data);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
@@ -515,7 +515,7 @@ export default function UsersList() {
         didOpen: () => Swal.showLoading(),
       });
 
-      const response = await axios.post("http://localhost:3001/auth/user/logout", {}, { withCredentials: true });
+      const response = await axios.post("https://foodapp-backend-production-7ffe.up.railway.app/auth/user/logout", {}, { withCredentials: true });
 
       if (response.status === 200) {
         Swal.fire({

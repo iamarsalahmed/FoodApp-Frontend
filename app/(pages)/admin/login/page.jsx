@@ -13,7 +13,7 @@
 //     e.preventDefault();
 //     try {
 //       const res = await axios.post(
-//         "http://localhost:3001/auth/login",
+//         "https://foodapp-backend-production-7ffe.up.railway.app/auth/login",
 //         { email, password },
 //         { withCredentials: true } // Enable sending cookies
 //       );
@@ -97,7 +97,7 @@
 //   const handleLogin = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const res = await axios.post("http://localhost:3001/admin/owner/login", formData);
+//       const res = await axios.post("https://foodapp-backend-production-7ffe.up.railway.app/admin/owner/login", formData);
 
 
 //       if (res.status === 200) {
@@ -182,7 +182,7 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3001/admin/owner/login",
+        "https://foodapp-backend-production-7ffe.up.railway.app/admin/owner/login",
         { email, password },
         { withCredentials: true } // Enable sending cookies
       );

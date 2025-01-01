@@ -116,7 +116,7 @@ const AddRestaurantModal = ({ onClose }) => {
     console.log('Payload being sent to backend:', payload);
   
     try {
-      await axios.post('http://localhost:3001/restaurant', payload);
+      await axios.post('https://foodapp-backend-production-7ffe.up.railway.app/restaurant', payload);
       console.log('Restaurant added successfully');
       onClose();
       window.location.reload();

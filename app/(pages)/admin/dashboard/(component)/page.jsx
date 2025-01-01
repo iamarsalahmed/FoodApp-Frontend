@@ -44,7 +44,7 @@ export default function Dashboard() {
         const token = getTokenFromCookies();
         if (token) {
           console.log("Token found, sending to backend...");
-          const response = await axios.get("http://localhost:3001/admin/ownerDetails", {
+          const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
             headers: {
               Authorization: `Bearer ${token}`, // Send the token without decoding
             },
@@ -65,7 +65,7 @@ export default function Dashboard() {
     const token = getTokenFromCookies();
     if (token) {
       console.log("Token found, sending to backend...");
-      const response = await axios.get('http://localhost:3001/restaurant', {
+      const response = await axios.get('https://foodapp-backend-production-7ffe.up.railway.app/restaurant', {
         headers: {
           Authorization: `Bearer ${token}`, // Send the token with the request
         },
@@ -100,7 +100,7 @@ export default function Dashboard() {
   };
 
   const handleUpdateRestaurant = () => {
-    axios.get('http://localhost:3001/restaurant').then((response) => {
+    axios.get('https://foodapp-backend-production-7ffe.up.railway.app/restaurant').then((response) => {
       setRestaurants(response.data);
     });
   };
@@ -118,11 +118,11 @@ export default function Dashboard() {
       });
 
       if (result.isConfirmed) {
-        const response = await axios.delete(`http://localhost:3001/restaurant/${id}`);
+        const response = await axios.delete(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
         if (response.status === 200) {
           Swal.fire('Deleted!', 'The restaurant has been deleted.', 'success');
           window.location.reload()
-          const updatedRestaurants = await axios.get('http://localhost:3001/restaurant');
+          const updatedRestaurants = await axios.get('https://foodapp-backend-production-7ffe.up.railway.app/restaurant');
           setRestaurants(updatedRestaurants.data);
         }
       }
@@ -142,7 +142,7 @@ export default function Dashboard() {
 
   const handleUpdateMenu = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/restaurant', {
+      const response = await axios.get('https://foodapp-backend-production-7ffe.up.railway.app/restaurant', {
         withCredentials: true, // Include cookies in the request
       });
       setRestaurants(response.data); // Update the restaurant list
@@ -163,7 +163,7 @@ export default function Dashboard() {
         didOpen: () => Swal.showLoading(),
       });
 
-      const response = await axios.post('http://localhost:3001/admin/logout', {}, { withCredentials: true });
+      const response = await axios.post('https://foodapp-backend-production-7ffe.up.railway.app/admin/logout', {}, { withCredentials: true });
       if (response.status === 200) {
         Swal.fire({
           title: 'Success!',

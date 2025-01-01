@@ -50,7 +50,7 @@
 //   useEffect(() => {
 //     async function fetchRestaurant() {
 //       try {
-//         const response = await axios.get(`http://localhost:3001/restaurant/${params.id}`);
+//         const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${params.id}`);
 //         setRestaurant(response.data);
 //       } catch (err) {
 //         setError('Failed to fetch restaurant details');
@@ -103,7 +103,7 @@
 //     if (!id) return; // Check if id exists
 //     async function fetchRestaurant() {
 //       try {
-//         const response = await axios.get(`http://localhost:3001/restaurant/${id}`);
+//         const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
 //         setRestaurant(response.data);
 //       } catch (err) {
 //         setError('Failed to fetch restaurant details');
@@ -157,7 +157,7 @@
 
 //     async function fetchRestaurant() {
 //       try {
-//         const response = await axios.get(`http://localhost:3001/restaurant/${id}`);
+//         const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
 //         setRestaurant(response.data);
 //       } catch (err) {
 //         setError('Failed to fetch restaurant details');
@@ -244,7 +244,7 @@
 
 //     async function fetchRestaurant() {
 //       try {
-//         const response = await axios.get(`http://localhost:3001/restaurant/${id}`);
+//         const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
 //         setRestaurant(response.data);
 //       } catch (err) {
 //         setError('Failed to fetch restaurant details');
@@ -269,7 +269,7 @@
 
 //     try {
 //       await axios.put(
-//         `http://localhost:3001/restaurant/${id}/menu/${editingMenuItem._id}`,
+//         `https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}/menu/${editingMenuItem._id}`,
 //         {
 //           itemName: editedItem.itemName,
 //           description: editedItem.description,
@@ -277,7 +277,7 @@
 //         }
 //       );
 //       setIsModalOpen(false);
-//       const response = await axios.get(`http://localhost:3001/restaurant/${id}`);
+//       const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${id}`);
 //       setRestaurant(response.data);
 //     } catch (err) {
 //       setError('Failed to update menu item');

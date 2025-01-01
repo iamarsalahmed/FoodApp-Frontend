@@ -57,7 +57,7 @@ export default function SignupForm() {
 
       // Submit signup data to backend
       console.log("Submitting signup data to backend...");
-      const res = await axios.post("http://localhost:3001/auth/signup", {
+      const res = await axios.post("https://foodapp-backend-production-7ffe.up.railway.app/auth/signup", {
         name,
         email,
         password,

@@ -9,7 +9,7 @@ function EditRestaurantModal({ restaurantId, onClose, onUpdate }) {
     // Fetch restaurant details by ID
     async function fetchRestaurant() {
       try {
-        const response = await axios.get(`http://localhost:3001/restaurant/${restaurantId}`);
+        const response = await axios.get(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurantId}`);
         setRestaurant(response.data);
       } catch (err) {
         setError('Failed to fetch restaurant data');
@@ -27,7 +27,7 @@ function EditRestaurantModal({ restaurantId, onClose, onUpdate }) {
   const handleSave = async () => {
     try {
       // Send a PUT request to update the restaurant
-      await axios.put(`http://localhost:3001/restaurant/${restaurantId}`, restaurant);
+      await axios.put(`https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurantId}`, restaurant);
       onUpdate(); // Refresh restaurant list after update
       onClose(); 
       window.location.reload() // Close modal
