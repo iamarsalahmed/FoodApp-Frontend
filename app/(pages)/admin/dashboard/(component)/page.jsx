@@ -39,39 +39,39 @@ export default function Dashboard() {
     };
   
     // Fetching user details
-    // const fetchUserDetails = async () => {
-    //   try {
-    //     const token = getTokenFromCookies();
-    //     if (token) {
-    //       console.log("Token found, sending to backend...");
-    //       const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
-    //         headers: {
-    //           Authorization: `Bearer ${token}`, // Send the token without decoding
-    //         },
-    //       });
-    //       console.log("Sending token in Authorization header:", `Bearer ${token}`);
-    //       console.log("User details fetched:", response.data); // Debugging log
-    //       setUser(response.data);
-    //     } else {
-    //       console.log("No token found in cookies"); // Debugging log
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user details:", error);
-    //   }
-    // };
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
-                   headers: {
-                    Authorization: `Bearer ${token}`, // Send the token without decoding
-                  },
-                });
-        console.log("User details fetched:", response.data);
-        setUser(response.data);
+        const token = getTokenFromCookies();
+        if (token) {
+          console.log("Token found, sending to backend...");
+          const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
+            headers: {
+              Authorization: `Bearer ${token}`, // Send the token without decoding
+            },
+          });
+          console.log("Sending token in Authorization header:", `Bearer ${token}`);
+          console.log("User details fetched:", response.data); // Debugging log
+          setUser(response.data);
+        } else {
+          console.log("No token found in cookies"); // Debugging log
+        }
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
     };
+    // const fetchUserDetails = async () => {
+    //   try {
+    //     const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
+    //                headers: {
+    //                 Authorization: `Bearer ${token}`, // Send the token without decoding
+    //               },
+    //             });
+    //     console.log("User details fetched:", response.data);
+    //     setUser(response.data);
+    //   } catch (error) {
+    //     console.error("Error fetching user details:", error);
+    //   }
+    // };
     
   const fetchRestaurants = async () => {
   try {
