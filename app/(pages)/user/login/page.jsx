@@ -28,9 +28,9 @@ export default function LoginForm() {
       });
       console.log("push to dahsboard")
       // Redirect to dashboard after delay
-      setTimeout(() => {
-        router.push("/user/dashboard");
-      }, 1500);
+      router.push("/user/dashboard");
+      // setTimeout(() => {
+      // }, 1500);
     } catch (error) {
       // Show error alert
       Swal.fire({
