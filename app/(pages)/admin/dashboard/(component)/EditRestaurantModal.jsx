@@ -29,7 +29,8 @@ function EditRestaurantModal({ restaurantId, onClose, onUpdate }) {
       // Send a PUT request to update the restaurant
       await axios.put(`http://localhost:3001/restaurant/${restaurantId}`, restaurant);
       onUpdate(); // Refresh restaurant list after update
-      onClose();  // Close modal
+      onClose(); 
+      window.location.reload() // Close modal
     } catch (err) {
       setError('Failed to update restaurant');
       console.error('Error updating restaurant:', err);

@@ -11,10 +11,17 @@ export default function JoinAsRestaurantOwner() {
             Foodie<span className="text-teal-200">App</span>
           </Link>
           <div className="hidden md:flex gap-6">
-            <Link href="#features" className="text-white hover:text-teal-200 transition duration-300">Features</Link>
-            <Link href="#download" className="text-white hover:text-teal-200 transition duration-300">Download</Link>
-            <Link href="#testimonials" className="text-white hover:text-teal-200 transition duration-300">Testimonials</Link>
-            <Link href="#contact" className="text-white hover:text-teal-200 transition duration-300">Contact</Link>
+            <Link href="/features" className="text-white hover:text-teal-200 transition duration-300">Features</Link>
+   
+            <Link href="/testimonials" className="text-white hover:text-teal-200 transition duration-300">
+              Testimonials
+            </Link>
+            <Link href="/about" className="text-white hover:text-teal-200 transition duration-300">
+              About Us
+            </Link>
+            <Link href="/contact" className="text-white hover:text-teal-200 transition duration-300">
+              Contact
+            </Link>
           </div>
           <div className="md:hidden flex items-center">
             <button className="text-white" aria-label="Open menu">

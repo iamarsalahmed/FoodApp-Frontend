@@ -1,8 +1,6 @@
-'use client'
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function LandingPage() {
+export default function Testimonials() {
   return (
     <div className="font-sans bg-gray-50 text-gray-800">
       {/* Navbar Section */}
@@ -12,10 +10,17 @@ export default function LandingPage() {
             Foodie<span className="text-teal-200">App</span>
           </Link>
           <div className="hidden md:flex gap-6">
-            <Link href="#features" className="text-white hover:text-teal-200 transition duration-300">Features</Link>
-            <Link href="#download" className="text-white hover:text-teal-200 transition duration-300">Download</Link>
-            <Link href="#testimonials" className="text-white hover:text-teal-200 transition duration-300">Testimonials</Link>
-            <Link href="#contact" className="text-white hover:text-teal-200 transition duration-300">Contact</Link>
+            <Link href="/features" className="text-white hover:text-teal-200 transition duration-300">Features</Link>
+            
+            <Link href="/testimonials" className="text-white hover:text-teal-200 transition duration-300">
+              Testimonials
+            </Link>
+            <Link href="/about" className="text-white hover:text-teal-200 transition duration-300">
+              About Us
+            </Link>
+            <Link href="/contact" className="text-white hover:text-teal-200 transition duration-300">
+              Contact
+            </Link>
           </div>
           <div className="md:hidden flex items-center">
             <button className="text-white" aria-label="Open menu">
@@ -27,25 +32,8 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section with Background Image */}
-      <section className="relative bg-cover bg-center h-screen" style={{ backgroundImage: "url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-center text-white flex flex-col justify-center items-center h-full px-6">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-4">Your Favorite Meals Delivered Fast</h1>
-          <p className="text-lg sm:text-xl mb-8">Explore top-rated restaurants and get your meals delivered at your doorstep in minutes.</p>
-          <div className="flex gap-6">
-            <Link href="/admin" className="bg-green-700 hover:bg-teal-600 text-white py-3 px-6 rounded-full text-lg font-semibold transition duration-300">
-              Join As a Restaurant Owner
-            </Link>
-            <Link href="/user" className="bg-green-700 hover:bg-teal-600 text-white py-3 px-6 rounded-full text-lg font-semibold transition duration-300">
-              Join As a User
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold text-gray-800 mb-12">What Our Users Say</h2>
           <div className="flex flex-wrap justify-center gap-6">
@@ -69,7 +57,7 @@ export default function LandingPage() {
       </section>
 
       {/* Call to Action Section */}
-      <section id="download" className="py-20 bg-teal-600 text-white text-center">
+      <section className="py-20 bg-teal-600 text-white text-center">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-semibold mb-6">Ready to Get Started?</h2>
           <p className="text-lg mb-8">Download the app and start enjoying fast, fresh, and convenient food delivery today!</p>

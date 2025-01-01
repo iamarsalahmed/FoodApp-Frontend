@@ -563,20 +563,7 @@ export default function UsersList() {
                   Dashboard
                 </li>
               </Link>
-              <Link href="/dashboard/teams">
-                <li className="p-4 hover:bg-gray-200 flex items-center">
-                  <FaUsers className="mr-3 text-indigo-600" />
-                  Teams
-                </li>
-              </Link>
-              <li className="p-4 hover:bg-gray-200 flex items-center">
-                <FaTasks className="mr-3 text-green-600" />
-                Tasks
-              </li>
-              <li className="p-4 hover:bg-gray-200 flex items-center">
-                <FaCog className="mr-3 text-gray-600" />
-                Settings
-              </li>
+              
             </ul>
           </nav>
         </div>
