@@ -42,6 +42,7 @@ export default function Dashboard() {
     const fetchUserDetails = async () => {
       try {
         const token = getTokenFromCookies();
+
         if (token) {
           console.log("Token found, sending to backend...");
           const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
@@ -50,7 +51,7 @@ export default function Dashboard() {
             },
           });
           console.log("Sending token in Authorization header:", `Bearer ${token}`);
-          console.log("User details fetched:", response.data); // Debugging log
+          console.log("User details fetched:", response); // Debugging log
           setUser(response.data);
         } else {
           console.log("No token found in cookies"); // Debugging log

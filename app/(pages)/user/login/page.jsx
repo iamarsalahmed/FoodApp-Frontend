@@ -14,8 +14,10 @@ export default function LoginForm() {
     try {
       const res = await axios.post(
         "https://foodapp-backend-production-7ffe.up.railway.app/auth/login",
+        // "http://localhost:3001/auth/login",
         { email, password },
         { withCredentials: true } // Enable sending cookies
+        
       );
 
       // Show success alert
