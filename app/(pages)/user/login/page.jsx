@@ -13,13 +13,21 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://foodapp-backend-production-7ffe.up.railway.app/auth/login",
-        // "http://localhost:3001/auth/login",
+        // "https://foodapp-backend-production-7ffe.up.railway.app/auth/login",
+        "http://localhost:3001/auth/login",
         { email, password },
         { withCredentials: true } // Enable sending cookies
-        
-      );
 
+      );
+      // Assuming the response contains a token
+      // const { token } = res.data;
+
+      // // Set the token as a cookie
+      // Cookies.set('jwt', token, {
+      //   expires: 7, // The cookie will expire in 7 days
+      //   secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      //   sameSite: 'Strict', // Adjust `SameSite` as needed
+      // });
       // Show success alert
       Swal.fire({
         icon: "success",

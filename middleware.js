@@ -3,10 +3,9 @@ import { NextResponse } from 'next/server';
 import axios from 'axios';
 
 export async function middleware(request) {
-  // Get the JWT token from cookies
+
   const token = request.cookies.get('jwt');
-  // console.log(token.value, "mera token ye hai")
-  // If the token is not available, redirect to /login
+
   if (!token) {
     return NextResponse.redirect(new URL('/user/login', request.url));
   }
