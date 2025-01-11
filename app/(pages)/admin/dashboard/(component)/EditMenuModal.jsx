@@ -28,7 +28,7 @@
 //   const handleSave = async () => {
 //     try {
 //       const response = await axios.put(
-//         `https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurant._id}/${restaurant.menu.[i]._id }`,
+//         `http://localhost:3001/restaurant/${restaurant._id}/${restaurant.menu.[i]._id }`,
 //         { menu: updatedMenu }
 //       );
 //       Swal.fire('Success', 'Menu updated successfully', 'success');
@@ -148,7 +148,7 @@ const EditMenuModal = ({ restaurant, onClose, onUpdate }) => {
       for (let i = 0; i < updatedMenu.length; i++) {
         const menuItemId = updatedMenu[i]._id; // Get the menu item ID from the updated list
         const response = await axios.put(
-          `https://foodapp-backend-production-7ffe.up.railway.app/restaurant/${restaurant._id}/menu/${menuItemId}`,  // Assuming menu items have unique _id
+          `http://localhost:3001/restaurant/${restaurant._id}/menu/${menuItemId}`,  // Assuming menu items have unique _id
           updatedMenu[i]  // Send the updated item data
         );
       }

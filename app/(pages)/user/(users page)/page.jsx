@@ -1,10 +1,10 @@
+import UserPage from 'UserPage'
 import React from 'react'
-import AboutUs from './about'
 
 export default  () => {
   return (
     <div>
-      <AboutUs/>
+      <UserPage/>
     </div>
   )
 }
