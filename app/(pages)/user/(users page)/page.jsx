@@ -1,4 +1,4 @@
-import UserPage from 'UserPage'
+import UserPage from './user'
 import React from 'react'
 
 export default  () => {
