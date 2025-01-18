@@ -5,6 +5,7 @@
 // export async function middleware(request) {
 
 //   const token = request.cookies.get('jwt');
+//   console.log(token, "middleware")
 
 //   if (!token) {
 //     return NextResponse.redirect(new URL('/user/login', request.url));
@@ -35,6 +36,7 @@
 // export const config = {
 //   matcher: [
 //     '/user/dashboard/:path*', // Protect /dashboard and its sub-routes
+//     "/admin/dashboard/:path*",
 //     '/user/dashboard/teams', // Protect /dashboard/teams
 //     '/user/dashboard/teams/create', // Protect /dashboard/teams/create
 //     '/user/dashboard/teams/:id', // Protect /dashboard/teams/[id] (dynamic route)

@@ -9,9 +9,12 @@ import AddRestaurantModal from './AddRestaurantModal';
 import { FaHome, FaUsers, FaTasks, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Link from 'next/link';
 import EditMenuModal from './EditMenuModal';  // Import the EditMenuModal component
-import { jwtDecode } from "jwt-decode"
 import Cookie from 'js-cookie';
-1
+import {
+  getCookie,
+  getCookies,
+
+} from 'cookies-next/client'
 
 export default function Dashboard() {
   const [restaurants, setRestaurants] = useState([]);
@@ -29,18 +32,22 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false); // Holds the ID of the restaurant currently loading
 
 
-
   const router = useRouter();
 
   useEffect(() => {
     // Function to get token from cookies
+    const Acookie = getCookie()
+    console.log(Acookie, "acookie")
+    const BCookie = getCookie('jwt');
+    console.log(BCookie, "BCookie")
     const getTokenFromCookies = () => {
       const token = Cookie.get("jwt");
       console.log(token, "frontend token from cookies");
       return token || null; // Return null if no token is found
     };
-
-    // Check if a token exists in the cookies
+    const DCookie = document.cookie
+    console.log(DCookie, "DCookie")
+    // Check if a token exists in the cookies  
     const checkToken = getTokenFromCookies();
     if (checkToken) {
       // Token exists, proceed with fetching data
@@ -48,11 +55,15 @@ export default function Dashboard() {
         try {
           console.log("Token being sent to the API:", checkToken);
 
-          const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails", {
-            headers: {
-              Authorization: `Bearer ${checkToken}`,
-            },
-          });
+          const response = await axios.get(
+            "https://foodapp-backend-production-7ffe.up.railway.app/admin/ownerDetails",
+            // "http://localhost:3001/admin/ownerDetails",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${checkToken}`,
+              },
+            });
 
           console.log("User details fetched:", response);
           setUser(response.data); // Set user details
@@ -64,7 +75,7 @@ export default function Dashboard() {
       const fetchRestaurants = async () => {
         try {
           console.log("Token found, sending to backend...");
-          
+
           const response = await axios.get("https://foodapp-backend-production-7ffe.up.railway.app/restaurant", {
             headers: {
               Authorization: `Bearer ${checkToken}`,
@@ -72,7 +83,7 @@ export default function Dashboard() {
           });
 
           console.log("Restaurants fetched:", response.data);
-          
+
           if (response.data.length === 0) {
             setMessage("No restaurants in database");
           } else {
@@ -92,7 +103,7 @@ export default function Dashboard() {
       console.log("No token found in cookies");
       router.push('/admin/login');
     }
-  }, [router]); 
+  }, [router]);
   // useEffect(() => {
 
   //   const getTokenFromCookies = () => {

@@ -182,10 +182,16 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        // "https://foodapp-backend-production-7ffe.up.railway.app/admin/owner/login",
         "https://foodapp-backend-production-7ffe.up.railway.app/admin/owner/login",
+        // "http://localhost:3001/admin/owner/login",
         { email, password },
-        { withCredentials: true } // Enable sending cookies
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+        // Enable sending cookies
       );
 
       // Show success alert
@@ -210,42 +216,6 @@ export default function LoginForm() {
       });
     }
   };
-
-  // return (
-  //   <div className="min-h-screen flex items-center justify-center bg-gray-100">
-  //     <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-  //       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login Restaurant Owner</h2>
-  //       <form onSubmit={handleLogin} className="space-y-4">
-  //         <div>
-  //           <input
-  //             type="email"
-  //             placeholder="Email"
-  //             value={email}
-  //             onChange={(e) => setEmail(e.target.value)}
-  //             required
-  //             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-  //           />
-  //         </div>
-  //         <div>
-  //           <input
-  //             type="password"
-  //             placeholder="Password"
-  //             value={password}
-  //             onChange={(e) => setPassword(e.target.value)}
-  //             required
-  //             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-  //           />
-  //         </div>
-  //         <button
-  //           type="submit"
-  //           className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-  //         >
-  //           Login
-  //         </button>
-  //       </form>
-  //     </div>
-  //   </div>
-  // );
 
 
   return (
