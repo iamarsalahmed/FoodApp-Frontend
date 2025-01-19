@@ -1,4 +1,3 @@
-
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -15,6 +14,8 @@ import {
   getCookies,
 
 } from 'cookies-next/client'
+import Cookies from 'js-cookie';
+
 
 export default function Dashboard() {
   const [restaurants, setRestaurants] = useState([]);
@@ -36,12 +37,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Function to get token from cookies
-    const Acookie = getCookie()
+    const theme = Cookies.get('AuthToken')
+    console.log(theme, "theme")
+    const Acookie = getCookies()
     console.log(Acookie, "acookie")
-    const BCookie = getCookie('jwt');
+    const BCookie = getCookie('AuthToken');
     console.log(BCookie, "BCookie")
     const getTokenFromCookies = () => {
-      const token = Cookie.get("jwt");
+      const token = Cookie.get("AuthToken");
       console.log(token, "frontend token from cookies");
       return token || null; // Return null if no token is found
     };
@@ -99,9 +102,14 @@ export default function Dashboard() {
       fetchUserDetails();
       fetchRestaurants();
     } else {
-      // No token found, redirect to login page
-      console.log("No token found in cookies");
-      router.push('/admin/login');
+
+      setTimeout(()=>{
+
+        // No token found, redirect to login page
+        console.log("No token found in cookies");
+        router.push('/admin/login');
+
+      }, 6000)
     }
   }, [router]);
   // useEffect(() => {
@@ -613,4 +621,3 @@ export default function Dashboard() {
   // );
 
 }
-

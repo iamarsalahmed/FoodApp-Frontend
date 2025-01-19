@@ -1,4 +1,4 @@
-// app/admin/dashboard/[id]/RestaurantDetails.jsx
+
 'use client';
 
 import React, { useState } from 'react';
